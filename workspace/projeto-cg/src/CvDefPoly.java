@@ -14,14 +14,20 @@ import java.util.*;
 
 class CvDefPoly extends Canvas {
 	Vector v = new Vector();
+	Vector vetorDeMatriz = new Vector();
 	float x0, y0, rWidth = 10.0F, rHeight = 7.5F, pixelSize;
 	boolean ready = true;
 	int centerX, centerY;
 
 	CvDefPoly() {
+		// Captura eventos do mouse
 		addMouseListener(new MouseAdapter() {
+			// captura o click do mouse
 			public void mousePressed(MouseEvent evt) {
 				float xA = fx(evt.getX()), yA = fy(evt.getY());
+				// Só para observear as cordenadas (em relação ao primeiro
+				// click)
+				System.out.println("Cordenadas: X = " + xA + " | Y = " + yA);
 				if (ready) {
 					v.removeAllElements();
 					x0 = xA;
@@ -29,10 +35,21 @@ class CvDefPoly extends Canvas {
 					ready = false;
 				}
 				float dx = xA - x0, dy = yA - y0;
+				// Condição que é disparada quando o poligono é fechado
 				if (v.size() > 0
-						&& dx * dx + dy * dy < 4 * pixelSize * pixelSize)
+						&& dx * dx + dy * dy < 4 * pixelSize * pixelSize) {
+					System.out.println("WE");
+					Point2D pontoTemp;
+					// Teste de retorno do vetor de pontos
+					for (int i = 0; i < v.size(); i++) {
+						pontoTemp = (Point2D) (v.elementAt(i));
+						System.out.println("Ponto " + i + " X = "
+								+ iX(pontoTemp.x) + " Y = " + iX(pontoTemp.y));
+						vetorDeMatriz.add(new Float[(int) pontoTemp.x][(int) pontoTemp.y]);
+					}
 					ready = true;
-				else
+				} else
+					// vetor de pontos (cordenadas da tela do java)
 					v.addElement(new Point2D(xA, yA));
 				repaint();
 			}
@@ -61,6 +78,10 @@ class CvDefPoly extends Canvas {
 
 	float fy(int y) {
 		return (centerY - y) * pixelSize;
+	}
+	
+	Vector getVetorDeMatriz(){
+		return this.vetorDeMatriz;
 	}
 
 	public void paint(Graphics g) {

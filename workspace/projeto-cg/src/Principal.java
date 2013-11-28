@@ -6,32 +6,37 @@
 --  
 --
 --  Date    Sign		History
---  ------	----		--------------------------------------------------------
+--  ------	----		-----------------------------------------------------
 --  101113	Lilian   	Criação
 -----------------------------------------------------------------------------
 */
 
-class Principal 
+public class Principal 
 {
-	public static void main (String args[])
+	public static void main (String[] args)
 	{
-		/*
-		 *MATRIZ DE IDENTIDADE SERÁ USADA APENAS NA CRIAÇÃO!
-		 **/
 
-		//Calculos.exibeMatriz(Calculos.montaMatrizIdentidade(3));
 		//Operacoes.escala(3);
 		
-		double matrizTeste[][] = new double[3][3];
-		matrizTeste[0][0] = 2;
-		matrizTeste[0][1] = 4;
-		matrizTeste[0][2] = 3;
-		matrizTeste[1][0] = 2;
-		matrizTeste[1][1] = 2;
-		matrizTeste[1][2] = 4;
-		matrizTeste[2][0] = 1;
-		matrizTeste[2][1] = 1;
-		matrizTeste[2][2] = 1;		
+		double matrizTeste[][] = new double[6][3];
+		matrizTeste[0][0] = 0;
+		matrizTeste[0][1] = 0;
+		matrizTeste[0][2] = 1;//
+		matrizTeste[1][0] = 4;
+		matrizTeste[1][1] = 1;
+		matrizTeste[1][2] = 1;//
+		matrizTeste[2][0] = 7;
+		matrizTeste[2][1] = 4;
+		matrizTeste[2][2] = 1;//
+		matrizTeste[3][0] = 6;
+		matrizTeste[3][1] = 8;
+		matrizTeste[3][2] = 1;//
+		matrizTeste[4][0] = 4;
+		matrizTeste[4][1] = 4;
+		matrizTeste[4][2] = 1;//
+		matrizTeste[5][0] = 1;
+		matrizTeste[5][1] = 4;
+		matrizTeste[5][2] = 1;//		
 		
 		
 		Calculos.exibeMatriz(matrizTeste);
@@ -51,17 +56,13 @@ class Principal
 		//Calculos.exibeMatriz(Operacoes.translacao(3, 0, matrizTeste));
 		//Calculos.exibeMatriz(Operacoes.translacao(0, 2, matrizTeste));
 		
-		//**** VERIFICAR A FUNÇÃO TANGENTE ******//
 		//CISALHAMENTO - ***IMPORTANTE - NA CHAMADA DESSE MÉTODO, CASO NÃO HAJA CISALHAMENTO EM UM DOS PONTOS (X OU Y) PASSAR O ANGULO DESTE COMO ???
 		//Calculos.exibeMatriz(Operacoes.cisalhamento(60, 60, false, false, matrizTeste));
 		
 		//ROTACAO
 		//Calculos.exibeMatriz(Operacoes.rotacao(60, matrizTeste));
-
-//******* DÚVIDAS GERAIS ******//		
-		//math.... ??
-		//****usar? "\nArredondamento: " + Math.round(nr));
-//******* DÚVIDAS GERAIS ******//
 		
+		//IDENTIFICACAO DOS PONTOS CONCAVOS E CONVEXOS
+		Operacoes.identificacaoVertices(matrizTeste);
 	}
 }

@@ -24,7 +24,11 @@ public class DefPoly extends Frame {
 			}
 		});
 
-		Panel panelButtons = new Panel(new GridLayout(4, 1));
+		CvDefPoly cvDefPolyObj = new CvDefPoly();
+		ActionListener action = new MyActionListener();
+		
+		
+		Panel panelButtons = new Panel(new GridLayout(6, 1));
 		panelButtons.setBackground(new Color(216, 216, 191));
 		
 		/* Box Rotação */
@@ -118,6 +122,40 @@ public class DefPoly extends Frame {
 		boxEscalonamento.add(panelEscalonamento);
 		panelButtons.add(boxEscalonamento);
 
+		/* Box Espelhamento */
+
+		Panel boxEspelhamento = new Panel(new FlowLayout(0, 20, 10));
+		Panel panelEspelhamento = new Panel(new GridLayout(4, 1));
+		Panel panelCheckboxGroupEsp = new Panel(new GridLayout(1, 2));
+		
+		Label labelEspelhamento = new Label ("___________Espelhamento___________");
+		Checkbox checkEspelhamento = new Checkbox ("Espelhamento", false);
+		CheckboxGroup checkGroupEspelhamento = new CheckboxGroup();  
+		
+		panelCheckboxGroupEsp.add(new Checkbox("X", checkGroupEspelhamento, true));
+		panelCheckboxGroupEsp.add(new Checkbox("Y", checkGroupEspelhamento, false));
+		
+		panelEspelhamento.add(labelEspelhamento);
+		panelEspelhamento.add(checkEspelhamento);
+		panelEspelhamento.add(panelCheckboxGroupEsp);
+		
+		boxEspelhamento.add(panelEspelhamento);
+		panelButtons.add(boxEspelhamento);
+		
+		
+		/* Botão transformar */
+		
+		Panel boxButtonTransformar = new Panel(new GridLayout(2, 1));
+		boxButtonTransformar.setBackground(new Color(0, 0, 0));
+		Button buttonTransformar = new Button("Transformar");
+		buttonTransformar.setBackground(new Color(254,254,254));
+		boxButtonTransformar.add(new Label(""));
+		boxButtonTransformar.add(buttonTransformar);
+		panelButtons.add(boxButtonTransformar);
+
+		/* Ação botão */
+		buttonTransformar.addActionListener(action);
+		
 		/*
 		Checkbox checkTranslacao = new Checkbox ("Translação", false);
 		Checkbox checkCisalhamento = new Checkbox ("Cisalhamento", false);
@@ -145,7 +183,6 @@ public class DefPoly extends Frame {
 		Button botaoEscalonamento = new Button("Escalonamento");
 		Button botaoEspelhamento = new Button("Espelhamento");
 
-		ActionListener action = new MyActionListener();
 
 		add(BorderLayout.WEST, botaoRotacao);
 		add(BorderLayout.WEST, botaoTranslacao);
@@ -159,8 +196,8 @@ public class DefPoly extends Frame {
 		botaoEscalonamento.addActionListener(action);
 		botaoEspelhamento.addActionListener(action);
 		*/
-
-		add("Center", new CvDefPoly());
+		
+		add("Center", cvDefPolyObj);
 		add(panelButtons, BorderLayout.WEST);
 
 		setSize(1040, 650);
@@ -171,14 +208,27 @@ public class DefPoly extends Frame {
 }
 
 class MyActionListener implements ActionListener {
+	
 	public void actionPerformed(ActionEvent ae) {
 		String s = ae.getActionCommand();
+	
 		if (s.equals("Exit")) {
+		
 			System.exit(0);
-		} else if (s.equals("Rotação")) {
-			System.out.println("Good Morning");
+		
+		} else if (s.equals("Transformar")) {
+		
+			System.out.println("AQUI!!!!");
+			cvDefPolyObj
+		
 		} else {
+			
 			System.out.println(s + " clicked");
+		
 		}
+	}
+	
+	public void setCvDefPoly(CvDefPoly cvDefPolyObj){
+		return 
 	}
 }

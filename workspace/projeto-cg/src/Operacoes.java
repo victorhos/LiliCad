@@ -1,38 +1,182 @@
-/*
------------------------------------------------------------------------------
---
---  Class: Operacoes
---
---  
---
---  Date    Sign		History
---  ------	----		--------------------------------------------------------
---	141113	Lilian		Formatação de números decimais
---	131113	Lilian		Ajustes nos métodos de cisalhamento e rotação
---  101113	Lilian   	Criação
------------------------------------------------------------------------------
-*/
-
-import java.lang.*;
-import javax.swing.*;
-
 class Operacoes 
 {
-	//Variável que será usada como parametro para criação da matriz identidade
+	//Variável que será usada como parametro para criação da matriz auxiliar
 	public static int tamanho = 3; //***IMPORTANTE - se necessário criar uma matriz de tamanho maior, alterar o valor desta variável
 	
-	 //6.1 Cálculo da área do polígono
-     
+	/* 
+	//6.1 Cálculo da área do polígono
+	 public static double calculaArea(double pontosPoligono[][]) //confirmar como estão sendo recebidos os pontos
+	 {
+	 	//recebe o poligono	
+		double areaParcial[][] = new double[filaTriangulos.length][1]; //uma coluna e várias linhas para armazenar as áreas de cada triangulo
+		double areaTotal = 0;
+		
+		//faz a chamada do método de triangularização
+		Fila filaTriangulos = new Fila();
+		//recebe a fila de retorno
+		filaTriangulos := Operacoes.triangularizacaoPoligono(pontosPoligono);
+				
+		//faz os cálculos da área de cada triangulo a partir da fila recebida armazena em uma matriz com o tamanho da fila
+		for (int x = 0; x < filaTriangulos.length; x++)
+		{
+			//cálculo da área de cada triangulo e armazenar no vetor
+			areaParcial[1][x] = ....
+		}
+		
+		//soma a area de cada triangulo 
+		for (int y = 0; y < areaParcial.length; y++)
+		{
+			areaTotal += areaParcial[1][y];
+		}
+		
+		//retorna o resultado
+		return areaTotal;
+	}
+     */
+
      //6.2 Identificação dos vértices côncavos e convexos
+     public static String[] identificacaoVertices(double pontos[][])
+     {
+     	//necessário comparar os três pontos passados com todos os pontos para ver se não há nenhum ponto convexo
+      	
+      	double[][] verifica = new double[pontos.length][2];
+      	//verifica[-][0] - Para armazenar o resultado da multiplicação
+      	//verifica[-][1] - armazenando se é positivo ou negativo o resultado
+      	
+      	int aux = 0;
+      	     	
+      	//loop que irá calcular a multiplicação vetorial e armazenar no vetor verifica
+ 		for (; aux < (pontos.length - 1); aux++)	
+ 		{
+ 			//System.out.print(pontos[aux][0]+"*"+pontos[aux+1][1]+"-"+pontos[aux][1]+"*"+pontos[aux+1][0]);
+ 			verifica[aux][0] = ((pontos[aux][0] * pontos[aux+1][1]) - (pontos[aux][1] * pontos[aux+1][0]));
+ 			//System.out.println("RESULTADO " + verifica[aux][0]);			
+ 		}
+ 				
+ 		//para comparar a última posição do vetor com a primeira
+ 		int aux_ini = 0;
+ 		//System.out.print(pontos[aux][0]+"*"+pontos[aux_ini][1]+"-"+pontos[aux][1]+"*"+pontos[aux_ini][0]);
+ 		verifica[aux][0] = ((pontos[aux][0] * pontos[aux_ini][1]) - (pontos[aux][1] * pontos[aux_ini][0]));
+ 		//System.out.println("RESULTADO " + verifica[aux_ini][0]);
+ 			
+ 		//percorrendo o vetor e verificando o valor da multiplicação e armazenando 0 para negativo e 1 para positivo
+ 		//arrumando o concavo e convexo --------------------------------------
+ 		for (int w = 0; w <= (pontos.length -1); w++)
+ 		{
+ 			if (verifica[w][0] < 0)
+ 			{
+ 				verifica[w][1] = 0;
+ 			}
+ 			else
+ 			{
+ 				verifica[w][1] = 1;
+ 			}
+ 		} 		
+ 		
+ 		//inicio dos metodos que verificão se o ponto é concavo ou convexo --->Lucas
+ 		String resultado[] = new String[pontos.length];
+ 		
+ 		for (int z = 0; z < verifica.length; z++)
+ 		{ 			
+ 			if(z==0)
+ 			{
+ 				resultado[z] = trata_primeiraPosicao(verifica);
+ 			}
+ 			else if(z==verifica.length-1)
+ 			{
+ 				resultado[z] = trata_ultimaPosicao(verifica);
+ 			}
+ 			else
+ 			{
+ 				resultado[z] = trata_posicaoMeio(verifica, z);
+ 			}
+ 			
+ 			System.out.println(resultado[z]);//imprime os resultados
+ 		}
+ 		//return verifica;
+ 		return resultado;
+     }     
      
-     //6.3 Transformação de escala, dado o parâmetro necessário - START
+     public static String trata_primeiraPosicao(double verifica[][])//trata o primeiro ponto armazenado para realizar a verificação
+     {
+    	 boolean aux1 = true, aux2 = true;
+    	 String resultado = "";
+    	 int ultimaPosicao = verifica.length-1;
+    	 if(verifica[0][0] < 0 && verifica[ultimaPosicao][0] >= 0 )
+    	 {
+ 			aux1=false;
+ 		 }
+ 		 if(verifica[0][0] < 0 && verifica[1][0] >= 0)
+ 		 {
+ 			aux2=false;
+ 		 }
+ 		 if(aux1 == true && aux2 == true)
+ 		 {
+ 			 resultado="Convexo";
+ 		 }
+ 		 else
+ 		 {
+ 		 	 resultado="Concavo";
+ 		 }
+    	 return resultado;
+     } 
+     
+     public static String trata_posicaoMeio(double verifica[][],int z)//trata os pontos armazenados entre a primeira
+     {																  // e a ultima posição para realizar a verificação
+    	 boolean aux1 = true, aux2 = true;									
+    	 String resultado="";
+    	 if(verifica[z][0] < 0 && verifica[z-1][0] >= 0 )
+    	 {
+ 			aux1=false;
+ 		 }
+ 		 if(verifica[z][0]< 0 && verifica[z+1][0] >= 0 )
+ 		 {
+ 			aux2=false;		
+ 		 }	
+ 		 if(aux1==true && aux2==true)
+ 		 {
+ 			resultado="Convexo";
+ 		 }
+ 		 else
+ 		 {
+ 			resultado="Concavo";
+ 		 }
+    	 return resultado;
+     }  
+     
+     public static String trata_ultimaPosicao(double verifica[][])//trata o ultimo ponto armazenado para realizar a verificação
+     {	 
+    	 boolean aux1=true, aux2=true;
+    	 String resultado="";
+    	 int ultimaPosicao=verifica.length-1;
+    	 if(verifica[ultimaPosicao][0]< 0 && verifica[ultimaPosicao-1][0] >= 0 )
+    	 {
+    		 aux1=false;
+ 		 }
+ 		 if(verifica[ultimaPosicao][0] < 0 && verifica[0][0] >= 0 )
+ 		 {
+ 			 aux2=false;
+ 		 }
+ 		 if(aux1==true && aux2==true)
+ 		 {
+ 			 resultado="Convexo";
+ 		 }
+ 		 else
+ 		 {
+ 			 resultado="Concavo";
+ 		 }
+    	 return resultado;
+     }
+     
+     
+     //6.3 Transformação de escala, dado o parâmetro necessário
      public static double[][] escala(int valorEscala, double matrizTransformacao[][])
      {
      	//criando a matriz para a escala
      	double matrizEscala[][] = new double[tamanho][tamanho];    	
      		     	
      	//criando a matriz para escala
-     	matrizEscala = Calculos.montaMatrizIdentidade(tamanho);
+     	matrizEscala = Calculos.montaMatrizAuxiliar(tamanho);
      	     	
 		//modificando a matriz identidade para ser uma matriz de operação de escala
      	matrizEscala[0][0] = valorEscala;
@@ -43,17 +187,17 @@ class Operacoes
      	
      	//retornar a matriz de transformação com a operação de escala	
      	return matrizTransformacao;
-     } 
-	//6.3 Transformação de escala, dado o parâmetro necessário - END
+     }  
+
      
-     //6.3 Transformação de espelhamento, fornecida(s) a(s) direção(ões) - START
+     //6.3 Transformação de espelhamento, fornecida(s) a(s) direção(ões)
      public static double[][] espelhamento(boolean direcaoX, boolean direcaoY, double matrizTransformacao[][])
      {     	
      	//criando a matriz para espelhamento
      	double matrizEspelhamento[][] = new double[tamanho][tamanho];    	
      	
      	//montando a matriz para espelhamento
-     	matrizEspelhamento = Calculos.montaMatrizIdentidade(tamanho);
+     	matrizEspelhamento = Calculos.montaMatrizAuxiliar(tamanho);
      	
         //modificando a matriz identidade para ser uma matriz de operação de espelhamento
        //espelhamento em x
@@ -80,16 +224,16 @@ class Operacoes
      	//retornar a matriz de transformação com a operação de escala	
      	return matrizTransformacao;     			
      }        
-     //6.3 Transformação de espelhamento, fornecida(s) a(s) direção(ões) - END
+
 	 
-     //6.4 Transformação de translação, dados os deslocamentos em x e em y - START
+     //6.4 Transformação de translação, dados os deslocamentos em x e em y
      public static double[][] translacao(int valorTranslacaoX, int valorTranslacaoY, double matrizTransformacao[][])
      {
      	//criando a matriz para translacao
      	double matrizTranslacao[][] = new double[tamanho][tamanho];
      	
      	//montando a matriz para translacao
-     	matrizTranslacao = Calculos.montaMatrizIdentidade(tamanho);
+     	matrizTranslacao = Calculos.montaMatrizAuxiliar(tamanho);
      	
      	//modificando a matriz identidade para ser uma matriz de operação de translação
      	matrizTranslacao[0][2] = valorTranslacaoX;
@@ -101,32 +245,26 @@ class Operacoes
      	//retornar a matriz de transformação com a operação de escala	
      	return matrizTransformacao;
      }
-     //6.4 Transformação de translação, dados os deslocamentos em x e em y - END
 	 
-     //6.5 Transformação de cisalhamento, fornecida(s) a(s) direção(ões) e o(s) ângulo(s) - START
+     //6.5 Transformação de cisalhamento, fornecida(s) a(s) direção(ões) e o(s) ângulo(s)
      public static double[][] cisalhamento(double anguloX, double anguloY, boolean direcaoX, boolean direcaoY, double matrizTransformacao[][])
      {
      	//criando a matriz para cisalhamento
-     	double matrizCisalhamento[][] = new double [tamanho][tamanho];
-		//DecimalFormat formato = new DecimalFormat("#.###"); //141113 - Lilian - Instanciando um objeto do DecimalFormat
+     	double matrizCisalhamento[][] = new double [tamanho][tamanho];		
 	
      	//variáveis auxiliares para o cálculo da tangente dos ângulos
      	double tangenteX = 0;
      	double tangenteY = 0;
      	
      	//montando a matriz para translacao
-     	matrizCisalhamento = Calculos.montaMatrizIdentidade(tamanho);
+     	matrizCisalhamento = Calculos.montaMatrizAuxiliar(tamanho);
      	     	
      	//calculando a tangente do angulo
      	// 131113 - Lilian - START
 		//tangenteX = Math.tan(anguloX);
-		//141113 - Lilian - START
 		tangenteX = Math.tan(Calculos.converteGraus(anguloX));		
-		//141113 - Lilian - END
-		System.out.println("Tangente ang X " + tangenteX);//
      	//tangenteY = Math.tan(anguloY);
 		tangenteY = Math.tan(Calculos.converteGraus(anguloY));
-		System.out.println("Tangente ang Y " + tangenteY);//
 		// 131113 - Lilian - END
 		
      	//cisalhamento em x
@@ -152,7 +290,7 @@ class Operacoes
      	
      	return matrizTransformacao;
      }
-	 //6.5 Transformação de cisalhamento, fornecida(s) a(s) direção(ões) e o(s) ângulo(s) - END
+     
 
      //6.6.Transformação de rotação, dadas  as coordenadas do ponto em torno do qual o polígono será rotacionado e o ângulo - START
      public static double[][] rotacao(double anguloRotacao, double matrizTransformacao[][])
@@ -165,7 +303,7 @@ class Operacoes
      	double cosseno = 0;
      	
      	//montando a matriz para translacao
-     	matrizRotacao = Calculos.montaMatrizIdentidade(tamanho);
+     	matrizRotacao = Calculos.montaMatrizAuxiliar(tamanho);
      	
      	//calculando o seno e o cosseno do ângulo
 		//131113 - Lilian - START
@@ -189,5 +327,61 @@ class Operacoes
  
  		return matrizTransformacao; 
      }
-	 //6.6.Transformação de rotação, dadas  as coordenadas do ponto em torno do qual o polígono será rotacionado e o ângulo - END
+	
+     /*
+	 //Método que faz a triangularização do polígono - START
+	 public static void triangularizacaoPoligono(double pontos[][])
+	{
+		double pontosParaTeste[][] = new double[3][2]; //três linhas duas colunas coluna 0 para x e 1 para y
+		// ? criar um objeto do tipo fila com 3 posições, para armzenar os tres pontos selecionados 
+		Fila filaTriangulos;
+		
+		//loop para verificar se os três pontos selecionados são válidos para formar o triângulo
+		for (int x = 0; x < 3; x++)
+		{
+			for (int y = 0; y < 3; y++)
+			{
+				//selecionando três pontos do poligono recebido
+				//primeiro ponto
+				pontosParaTeste[1][x] = pontos[1][x];
+				pontosParaTeste[1][y] = pontos[1][y];
+				//segundo ponto
+				pontosParaTeste[2][x] = pontos[2][x];
+				pontosParaTeste[2][y] = pontos[2][y];
+				//terceiro ponto
+				pontosParaTeste[3][x] = pontos[3][x];
+				pontosParaTeste[3][y] = pontos[3][y];
+				
+				//testando se são válidos
+				String resultado[] = new String[3];
+				resultado = Operacoes.identificacaoVertices(pontosParaTeste);
+				
+				/*
+				//verificando resultado
+				if "resultado"
+				{
+					for (int z = 0; z < 3; z++)
+					{
+						for (int w = 0; w < 3; w++)
+						{
+							filaTriangulos.Enfileira(pontosParaTeste[z][w]);
+							filaTriangulos.Enfileira(pontosParaTeste[z][w]);
+							filaTriangulos.Enfileira(pontosParaTeste[z][w]);
+						}
+					}
+					//marcar pontos como já utilizado - ideia: criar mais um campo no vetor recebido e acrescentar 0 para não usado e 1 para usado
+					
+				}
+			    
+
+				if ((resultado[0].equals("Concavo"))&&(resultado[1].equals("Concavo"))&&(resultado[3].equals("Concavo")))
+				{
+					
+				}
+			}
+		}
+		//Calculos.calculaArea(filaTriangulos);
+	}
+	 //Método que faz a triangularização do polígono - END
+	 */
 }	

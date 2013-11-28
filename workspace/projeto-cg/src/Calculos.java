@@ -7,14 +7,16 @@
 --
 --  Date    Sign		History
 --  ------	----		--------------------------------------------------------
+--	141113	Lilian		Formatação de números decimais - Apenas para exibir o número menor
 --	131113	Lilian		Inclusão do método converteGraus
 --  101113	Lucas 		Criação
 -----------------------------------------------------------------------------
 */
 
+import java.text.DecimalFormat;
+
 class Calculos 
 {	
-	//101113 - Lucas - Criação dos métodos usados para os cálculos - START
 	//Método que efetua a multiplicação entre as matrizes recebidas - START
 	//***IMPORTANTE - A matriz de transformação deve ser passada em primeiro na chamada desse método***//
 	public static double [][] multiplicaMatriz(	double matrizGeral[][], double matrizForm[][])
@@ -45,26 +47,26 @@ class Calculos
 		}	
 		return mat_aux;		
 	}
-	//Método que efetua a multiplicação entre as matrizes recebidas - END
 	
 	//Método que exibe a Matriz recebida - START
 	public static void exibeMatriz(double m1[][])
 	{
+		DecimalFormat format = new DecimalFormat("#.###"); //141113 - Lilian - Instanciando um objeto do DecimalFormat				
+		
 		for(int x = 0; x < m1.length;x++)
 		{
 			for(int y =0;y<m1[0].length;y++)
 			{
-				//System.out.println(m1[x][y]+" x="+x+" y="+y);
-				System.out.print(m1[x][y]+ " ");
+				System.out.print(format.format(m1[x][y]));
+				System.out.print(" ");
 			}
 		System.out.println();
 		}
 		System.out.println("------");
 	}
-	//Método que exibe a Matriz recebida - END
 	
-	//Método responsável por montar a matriz identidade - START
-	public static double[][] montaMatrizIdentidade(int tamanhoMatriz)
+	//Método responsável por montar a matriz auxiliar - START
+	public static double[][] montaMatrizAuxiliar(int tamanhoMatriz)
 	{
 		double matrizIdentidade[][] = new double [tamanhoMatriz][tamanhoMatriz];
 		
@@ -72,26 +74,25 @@ class Calculos
 		{
 			for(int j = 0; j < tamanhoMatriz; j++)
 			{
+				
 				if(i == j)
 				{
 					matrizIdentidade[i][j]=1;
 				}
 				else
 				{
+					
 					matrizIdentidade[i][j]=0;
 				}
 			}	
 		}
 		return matrizIdentidade;
 	}
-	//Método responsável por montar a matriz identidade - END
-	//101113 - Lucas - Criação dos métodos usados para os cálculos - END
 	
 	// 131113 - Lilian - Método que será responsável por converter graus em radianos - START
 	public static double converteGraus(double graus)
 	{
 		double anguloRadianos = (2 * Math.PI * graus) / 360;
 		return anguloRadianos;
-	}
-	// 131113 - Lilian - Método que será responsável por converter graus em radianos - END
+	}	
 }
