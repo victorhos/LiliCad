@@ -1,7 +1,9 @@
 class Operacoes 
 {
 	//Variável que será usada como parametro para criação da matriz auxiliar
-	public static int tamanho = 3; //***IMPORTANTE - se necessário criar uma matriz de tamanho maior, alterar o valor desta variável
+	public static int tamanho = 6; //***IMPORTANTE - se necessário criar uma matriz de tamanho maior, alterar o valor desta variável
+	public static int tamanho_linha = 3; //***IMPORTANTE - se necessário criar uma matriz de tamanho maior, alterar o valor desta variável
+	
 	
 	/* 
 	//6.1 Cálculo da área do polígono
@@ -34,11 +36,9 @@ class Operacoes
 	}
      */
 
-     //6.2 Identificação dos vértices côncavos e convexos
+     //6.2 Identificação dos vértices côncavos e convexos  
      public static String[] identificacaoVertices(double pontos[][])
-     {
-     	//necessário comparar os três pontos passados com todos os pontos para ver se não há nenhum ponto convexo
-      	
+     {     	
       	double[][] verifica = new double[pontos.length][2];
       	//verifica[-][0] - Para armazenar o resultado da multiplicação
       	//verifica[-][1] - armazenando se é positivo ou negativo o resultado
@@ -48,19 +48,14 @@ class Operacoes
       	//loop que irá calcular a multiplicação vetorial e armazenar no vetor verifica
  		for (; aux < (pontos.length - 1); aux++)	
  		{
- 			//System.out.print(pontos[aux][0]+"*"+pontos[aux+1][1]+"-"+pontos[aux][1]+"*"+pontos[aux+1][0]);
  			verifica[aux][0] = ((pontos[aux][0] * pontos[aux+1][1]) - (pontos[aux][1] * pontos[aux+1][0]));
- 			//System.out.println("RESULTADO " + verifica[aux][0]);			
  		}
  				
  		//para comparar a última posição do vetor com a primeira
  		int aux_ini = 0;
- 		//System.out.print(pontos[aux][0]+"*"+pontos[aux_ini][1]+"-"+pontos[aux][1]+"*"+pontos[aux_ini][0]);
  		verifica[aux][0] = ((pontos[aux][0] * pontos[aux_ini][1]) - (pontos[aux][1] * pontos[aux_ini][0]));
- 		//System.out.println("RESULTADO " + verifica[aux_ini][0]);
  			
  		//percorrendo o vetor e verificando o valor da multiplicação e armazenando 0 para negativo e 1 para positivo
- 		//arrumando o concavo e convexo --------------------------------------
  		for (int w = 0; w <= (pontos.length -1); w++)
  		{
  			if (verifica[w][0] < 0)
@@ -73,7 +68,7 @@ class Operacoes
  			}
  		} 		
  		
- 		//inicio dos metodos que verificão se o ponto é concavo ou convexo --->Lucas
+ 		//inicio dos metodos que verificão se o ponto é concavo ou convexo
  		String resultado[] = new String[pontos.length];
  		
  		for (int z = 0; z < verifica.length; z++)
@@ -90,14 +85,12 @@ class Operacoes
  			{
  				resultado[z] = trata_posicaoMeio(verifica, z);
  			}
- 			
- 			System.out.println(resultado[z]);//imprime os resultados
  		}
- 		//return verifica;
  		return resultado;
      }     
      
-     public static String trata_primeiraPosicao(double verifica[][])//trata o primeiro ponto armazenado para realizar a verificação
+	 //trata o primeiro ponto armazenado para realizar a verificação
+     public static String trata_primeiraPosicao(double verifica[][])
      {
     	 boolean aux1 = true, aux2 = true;
     	 String resultado = "";
@@ -121,8 +114,9 @@ class Operacoes
     	 return resultado;
      } 
      
-     public static String trata_posicaoMeio(double verifica[][],int z)//trata os pontos armazenados entre a primeira
-     {																  // e a ultima posição para realizar a verificação
+	 //trata os pontos armazenados entre a primeira e a ultima posição para realizar a verificação
+     public static String trata_posicaoMeio(double verifica[][],int z)
+     {																  
     	 boolean aux1 = true, aux2 = true;									
     	 String resultado="";
     	 if(verifica[z][0] < 0 && verifica[z-1][0] >= 0 )
@@ -144,7 +138,8 @@ class Operacoes
     	 return resultado;
      }  
      
-     public static String trata_ultimaPosicao(double verifica[][])//trata o ultimo ponto armazenado para realizar a verificação
+	 //trata o ultimo ponto armazenado para realizar a verificação
+     public static String trata_ultimaPosicao(double verifica[][])
      {	 
     	 boolean aux1=true, aux2=true;
     	 String resultado="";
@@ -173,7 +168,7 @@ class Operacoes
      public static double[][] escala(int valorEscala, double matrizTransformacao[][])
      {
      	//criando a matriz para a escala
-     	double matrizEscala[][] = new double[tamanho][tamanho];    	
+     	double matrizEscala[][] = new double[tamanho_linha][tamanho];    	
      		     	
      	//criando a matriz para escala
      	matrizEscala = Calculos.montaMatrizAuxiliar(tamanho);
@@ -194,7 +189,7 @@ class Operacoes
      public static double[][] espelhamento(boolean direcaoX, boolean direcaoY, double matrizTransformacao[][])
      {     	
      	//criando a matriz para espelhamento
-     	double matrizEspelhamento[][] = new double[tamanho][tamanho];    	
+     	double matrizEspelhamento[][] = new double[tamanho_linha][tamanho];    	
      	
      	//montando a matriz para espelhamento
      	matrizEspelhamento = Calculos.montaMatrizAuxiliar(tamanho);
@@ -221,7 +216,7 @@ class Operacoes
      	//efetuando a multiplicação da matriz de espelhamento com a matriz recebida	
      	matrizTransformacao = Calculos.multiplicaMatriz (matrizEspelhamento, matrizTransformacao);     		
      	
-     	//retornar a matriz de transformação com a operação de escala	
+     	//retornar a matriz de transformação com a operação de espelhamento
      	return matrizTransformacao;     			
      }        
 
@@ -230,12 +225,12 @@ class Operacoes
      public static double[][] translacao(int valorTranslacaoX, int valorTranslacaoY, double matrizTransformacao[][])
      {
      	//criando a matriz para translacao
-     	double matrizTranslacao[][] = new double[tamanho][tamanho];
+     	double matrizTranslacao[][] = new double[tamanho_linha][tamanho];
      	
      	//montando a matriz para translacao
      	matrizTranslacao = Calculos.montaMatrizAuxiliar(tamanho);
      	
-     	//modificando a matriz identidade para ser uma matriz de operação de translação
+     	//modificando a matriz auxiliar para ser uma matriz de operação de translação
      	matrizTranslacao[0][2] = valorTranslacaoX;
      	matrizTranslacao[1][2] = valorTranslacaoY;
      	
@@ -250,7 +245,7 @@ class Operacoes
      public static double[][] cisalhamento(double anguloX, double anguloY, boolean direcaoX, boolean direcaoY, double matrizTransformacao[][])
      {
      	//criando a matriz para cisalhamento
-     	double matrizCisalhamento[][] = new double [tamanho][tamanho];		
+     	double matrizCisalhamento[][] = new double [tamanho_linha][tamanho];		
 	
      	//variáveis auxiliares para o cálculo da tangente dos ângulos
      	double tangenteX = 0;
@@ -260,12 +255,8 @@ class Operacoes
      	matrizCisalhamento = Calculos.montaMatrizAuxiliar(tamanho);
      	     	
      	//calculando a tangente do angulo
-     	// 131113 - Lilian - START
-		//tangenteX = Math.tan(anguloX);
 		tangenteX = Math.tan(Calculos.converteGraus(anguloX));		
-     	//tangenteY = Math.tan(anguloY);
 		tangenteY = Math.tan(Calculos.converteGraus(anguloY));
-		// 131113 - Lilian - END
 		
      	//cisalhamento em x
      	if (direcaoX && !direcaoY)
@@ -292,11 +283,11 @@ class Operacoes
      }
      
 
-     //6.6.Transformação de rotação, dadas  as coordenadas do ponto em torno do qual o polígono será rotacionado e o ângulo - START
+     //6.6.Transformação de rotação, dadas  as coordenadas do ponto em torno do qual o polígono será rotacionado e o ângulo
      public static double[][] rotacao(double anguloRotacao, double matrizTransformacao[][])
      {
      	//criando a matriz para rotacao
-     	double matrizRotacao[][] = new double [tamanho][tamanho];
+     	double matrizRotacao[][] = new double [tamanho_linha][tamanho];
      	
      	//variáveis auxiliares para o cálculo do seno e cosseno do ângulo
      	double seno = 0;
@@ -306,28 +297,23 @@ class Operacoes
      	matrizRotacao = Calculos.montaMatrizAuxiliar(tamanho);
      	
      	//calculando o seno e o cosseno do ângulo
-		//131113 - Lilian - START
-     	//seno = Math.sin(anguloRotacao);
 		seno = Math.sin(Calculos.converteGraus(anguloRotacao));
-     	System.out.println(seno);//
-     	//cosseno = Math.cos(anguloRotacao);
      	cosseno = Math.cos(Calculos.converteGraus(anguloRotacao));
-		System.out.println(cosseno);//
-     	//131113 - Lilian - END
 		
+		//alterando a matriz auxiliar para ser a matriz de rotação
      	matrizRotacao[0][0] = cosseno;
      	matrizRotacao[0][1] = (- seno);
      	matrizRotacao[1][0] = seno;
      	matrizRotacao[1][1] = cosseno;
      	
-     	Calculos.exibeMatriz(matrizRotacao);
-     	
      	//efetuando a multiplicação da matriz de rotação com a matriz recebida
      	matrizTransformacao = Calculos.multiplicaMatriz (matrizRotacao, matrizTransformacao);     	     	
  
+		//retornando o resultado da transformação
  		return matrizTransformacao; 
      }
 	
+     
      /*
 	 //Método que faz a triangularização do polígono - START
 	 public static void triangularizacaoPoligono(double pontos[][])

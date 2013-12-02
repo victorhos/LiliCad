@@ -1,23 +1,8 @@
-/*
------------------------------------------------------------------------------
---
---  Class: Calculos
---
---  
---
---  Date    Sign		History
---  ------	----		--------------------------------------------------------
---	141113	Lilian		Formatação de números decimais - Apenas para exibir o número menor
---	131113	Lilian		Inclusão do método converteGraus
---  101113	Lucas 		Criação
------------------------------------------------------------------------------
-*/
-
 import java.text.DecimalFormat;
 
 class Calculos 
 {	
-	//Método que efetua a multiplicação entre as matrizes recebidas - START
+	//Método que efetua a multiplicação entre as matrizes recebidas
 	//***IMPORTANTE - A matriz de transformação deve ser passada em primeiro na chamada desse método***//
 	public static double [][] multiplicaMatriz(	double matrizGeral[][], double matrizForm[][])
 	{
@@ -58,7 +43,7 @@ class Calculos
 			for(int y =0;y<m1[0].length;y++)
 			{
 				System.out.print(format.format(m1[x][y]));
-				System.out.print(" ");
+				System.out.print("	");
 			}
 		System.out.println();
 		}
@@ -89,7 +74,7 @@ class Calculos
 		return matrizIdentidade;
 	}
 	
-	// 131113 - Lilian - Método que será responsável por converter graus em radianos - START
+	//Método que será responsável por converter graus em radianos - START
 	public static double converteGraus(double graus)
 	{
 		double anguloRadianos = (2 * Math.PI * graus) / 360;

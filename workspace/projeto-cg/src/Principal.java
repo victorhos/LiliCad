@@ -1,16 +1,3 @@
-/*
------------------------------------------------------------------------------
---
---  Class: Principal
---
---  
---
---  Date    Sign		History
---  ------	----		-----------------------------------------------------
---  101113	Lilian   	Criação
------------------------------------------------------------------------------
-*/
-
 public class Principal 
 {
 	public static void main (String[] args)
@@ -18,29 +5,37 @@ public class Principal
 
 		//Operacoes.escala(3);
 		
-		double matrizTeste[][] = new double[6][3];
-		matrizTeste[0][0] = 0;
-		matrizTeste[0][1] = 0;
-		matrizTeste[0][2] = 1;//
-		matrizTeste[1][0] = 4;
+		
+		double matrizTeste[][] = new double[3][6];
+		//Calculos.exibeMatriz(matrizTeste);
+		
+		matrizTeste[0][0] = 2;
+		matrizTeste[1][0] = 8;
+		matrizTeste[2][0] = 1;//
+		
+		matrizTeste[0][1] = 4;
 		matrizTeste[1][1] = 1;
-		matrizTeste[1][2] = 1;//
-		matrizTeste[2][0] = 7;
-		matrizTeste[2][1] = 4;
+		matrizTeste[2][1] = 1;//
+		
+			
+		matrizTeste[0][2] = 7;
+		matrizTeste[1][2] = 4;
 		matrizTeste[2][2] = 1;//
-		matrizTeste[3][0] = 6;
-		matrizTeste[3][1] = 8;
-		matrizTeste[3][2] = 1;//
-		matrizTeste[4][0] = 4;
-		matrizTeste[4][1] = 4;
-		matrizTeste[4][2] = 1;//
-		matrizTeste[5][0] = 1;
-		matrizTeste[5][1] = 4;
-		matrizTeste[5][2] = 1;//		
 		
+		matrizTeste[0][3] = 6;
+		matrizTeste[1][3] = 8;
+		matrizTeste[2][3] = 1;//
 		
+		matrizTeste[0][4] = 4;
+		matrizTeste[1][4] = 4;
+		matrizTeste[2][4] = 1;//
+		
+		matrizTeste[0][5] = 1;
+		matrizTeste[1][5] = 4;
+		matrizTeste[2][5] = 1;//		
+		
+		System.out.println("Matriz inicial:");
 		Calculos.exibeMatriz(matrizTeste);
-		//System.out.println("--");
 		
 		
 		//ESCALA
@@ -63,6 +58,12 @@ public class Principal
 		//Calculos.exibeMatriz(Operacoes.rotacao(60, matrizTeste));
 		
 		//IDENTIFICACAO DOS PONTOS CONCAVOS E CONVEXOS
-		Operacoes.identificacaoVertices(matrizTeste);
+		//Operacoes.identificacaoVertices(matrizTeste);
+		
+		//Calculos.exibeMatriz(Operacoes.rotacao(60, matrizTeste));
+		
+		System.out.println("RESULTADO: ");
+		Calculos.exibeMatriz(Operacoes.translacao(2, 2, matrizTeste));
+		
 	}
 }
