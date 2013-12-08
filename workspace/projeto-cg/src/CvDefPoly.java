@@ -13,8 +13,13 @@ import java.awt.event.*;
 import java.util.*;
 
 class CvDefPoly extends Canvas {
-	Vector v = new Vector();
-	Vector vetorDeMatriz = new Vector();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public Vector<Point2D> v = new Vector<Point2D>();
+	//public Vector<Integer[][]> vetorDeMatriz = new Vector<Integer[][]>();
+	public ArrayList<Integer[][]> vetorDeMatriz = new ArrayList<Integer[][]>();
 	float x0, y0, rWidth = 10.0F, rHeight = 7.5F, pixelSize;
 	boolean ready = true;
 	int centerX, centerY;
@@ -41,11 +46,21 @@ class CvDefPoly extends Canvas {
 					System.out.println("WE");
 					Point2D pontoTemp;
 					// Teste de retorno do vetor de pontos
+					Integer[][] pedaco = new Integer[v.size()][2];
 					for (int i = 0; i < v.size(); i++) {
+
 						pontoTemp = (Point2D) (v.elementAt(i));
 						System.out.println("Ponto " + i + " X = "
 								+ iX(pontoTemp.x) + " Y = " + iX(pontoTemp.y));
-						vetorDeMatriz.add(new Float[(int) pontoTemp.x][(int) pontoTemp.y]);
+						System.out.print(v.size());
+						
+						pedaco[i][0] = (int) pontoTemp.x;
+						pedaco[i][1] = (int) pontoTemp.y;
+						
+						vetorDeMatriz.add(pedaco);
+						Integer[][] q = new Integer[2][1];
+						q = vetorDeMatriz.get(0);
+						System.out.print("teste: " + q[0][0]);
 					}
 					ready = true;
 				} else
@@ -79,11 +94,11 @@ class CvDefPoly extends Canvas {
 	float fy(int y) {
 		return (centerY - y) * pixelSize;
 	}
-	
-	Vector getVetorDeMatriz(){
+	/*
+	Vector<Integer[][]> getVetorDeMatriz(){
 		return this.vetorDeMatriz;
 	}
-
+	*/
 	public void paint(Graphics g) {
 		initgr();
 		int left = iX(-rWidth / 2), right = iX(rWidth / 2), bottom = iY(-rHeight / 2), top = iY(rHeight / 2);

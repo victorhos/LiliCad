@@ -142,7 +142,6 @@ public class DefPoly extends Frame {
 		boxEspelhamento.add(panelEspelhamento);
 		panelButtons.add(boxEspelhamento);
 		
-		
 		/* Botão transformar */
 		
 		Panel boxButtonTransformar = new Panel(new GridLayout(2, 1));
@@ -156,47 +155,6 @@ public class DefPoly extends Frame {
 		/* Ação botão */
 		buttonTransformar.addActionListener(action);
 		
-		/*
-		Checkbox checkTranslacao = new Checkbox ("Translação", false);
-		Checkbox checkCisalhamento = new Checkbox ("Cisalhamento", false);
-		Checkbox checkEscalonamento = new Checkbox ("Escalonamento", false);
-		Checkbox checkEspelhamento = new Checkbox ("Espelhamento", false);
-		
-		
-		panelButtons.add(checkTranslacao);
-		panelButtons.add(checkCisalhamento);
-		panelButtons.add(checkEscalonamento);
-		panelButtons.add(checkEspelhamento);
-		*/
-		
-		/*
-		 
-		Button checkRotacao = new Button("Rotação");
-		Button checkTranslacao = new Button("Translação");
-		Button checkCisalhamento = new Button("Cisalhamento");
-		Button checkEscalonamento = new Button("Escalonamento");
-		Button checkEspelhamento = new Button("Espelhamento");
-
-		Button botaoRotacao = new Button("Rotação");
-		Button botaoTranslacao = new Button("Translação");
-		Button botaoCisalhamento = new Button("Cisalhamento");
-		Button botaoEscalonamento = new Button("Escalonamento");
-		Button botaoEspelhamento = new Button("Espelhamento");
-
-
-		add(BorderLayout.WEST, botaoRotacao);
-		add(BorderLayout.WEST, botaoTranslacao);
-		add(BorderLayout.WEST, botaoCisalhamento);
-		add(BorderLayout.WEST, botaoEscalonamento);
-		add(BorderLayout.EAST, botaoEspelhamento);
-
-		botaoRotacao.addActionListener(action);
-		botaoTranslacao.addActionListener(action);
-		botaoCisalhamento.addActionListener(action);
-		botaoEscalonamento.addActionListener(action);
-		botaoEspelhamento.addActionListener(action);
-		*/
-		
 		add("Center", cvDefPolyObj);
 		add(panelButtons, BorderLayout.WEST);
 
@@ -208,6 +166,7 @@ public class DefPoly extends Frame {
 }
 
 class MyActionListener implements ActionListener {
+	CvDefPoly pontos = new CvDefPoly();
 	
 	public void actionPerformed(ActionEvent ae) {
 		String s = ae.getActionCommand();
@@ -219,7 +178,7 @@ class MyActionListener implements ActionListener {
 		} else if (s.equals("Transformar")) {
 		
 			System.out.println("AQUI!!!!");
-			cvDefPolyObj
+			System.out.println(this.pontos);
 		
 		} else {
 			
@@ -229,6 +188,10 @@ class MyActionListener implements ActionListener {
 	}
 	
 	public void setCvDefPoly(CvDefPoly cvDefPolyObj){
-		return 
+		this.pontos = cvDefPolyObj;
+	}
+	
+	public CvDefPoly getCvDefPoly(){
+		return this.pontos;
 	}
 }
