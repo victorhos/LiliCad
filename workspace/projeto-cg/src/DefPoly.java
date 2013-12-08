@@ -7,7 +7,7 @@
 // Uses: CvDefPoly (discussed below).
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
+//import javax.swing.*;
 
 public class DefPoly extends Frame {
 
@@ -15,6 +15,7 @@ public class DefPoly extends Frame {
 		new DefPoly();
 	}
 
+	@SuppressWarnings("deprecation")
 	DefPoly() {
 		super("LiliCad");
 
@@ -26,7 +27,7 @@ public class DefPoly extends Frame {
 
 		CvDefPoly cvDefPolyObj = new CvDefPoly();
 		ActionListener action = new MyActionListener();
-		
+		((MyActionListener) action).setCvDefPoly(cvDefPolyObj);
 		
 		Panel panelButtons = new Panel(new GridLayout(6, 1));
 		panelButtons.setBackground(new Color(216, 216, 191));
@@ -158,7 +159,7 @@ public class DefPoly extends Frame {
 		add("Center", cvDefPolyObj);
 		add(panelButtons, BorderLayout.WEST);
 
-		setSize(1040, 650);
+		setSize(1440, 650);
 		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		show();
 	}
@@ -178,7 +179,10 @@ class MyActionListener implements ActionListener {
 		} else if (s.equals("Transformar")) {
 		
 			System.out.println("AQUI!!!!");
-			System.out.println(this.pontos);
+			for (int x = 0; x < pontos.getVetorDeMatriz().size() ; x++){
+				 float[][] arrayPonto = pontos.getVetorDeMatriz().get(x);
+				 System.out.println("x: " + arrayPonto[0][0] + " y: " + arrayPonto [0][1]);
+			}
 		
 		} else {
 			
