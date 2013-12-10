@@ -184,11 +184,9 @@ class MyActionListener implements ActionListener {
 			System.exit(0);
 
 		} else if (s.equals("Transformar")) {
-
-			for (int x = 0; x < pontos.getVetorDeMatriz().size(); x++) {
-				float[][] arrayPonto = pontos.getVetorDeMatriz().get(x);
-				System.out.println("x: " + arrayPonto[0][0] + " y: "
-						+ arrayPonto[0][1]);
+			for (int x = 0; x < pontos.getVetorDeMatriz().size() ; x++){
+				 float[][] arrayPonto = pontos.getVetorDeMatriz().get(x);
+				 System.out.println("x: " + arrayPonto[0][0] + " y: " + arrayPonto [0][1]);
 			}
 		} else {
 
