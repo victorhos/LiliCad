@@ -42,7 +42,7 @@ public class DefPoly extends Frame {
 		Checkbox checkRotacao = new Checkbox ("Rotação", false);
 		CheckboxGroup checkSentidoHorarioAnti = new CheckboxGroup();
 		TextField textGrau = new TextField();  
-		
+
 		panelCheckboxGroup.add(new Checkbox("Horário", checkSentidoHorarioAnti, true));
 		panelCheckboxGroup.add(new Checkbox("Anti-Horário", checkSentidoHorarioAnti, false));
 		
@@ -171,14 +171,13 @@ class MyActionListener implements ActionListener {
 	
 	public void actionPerformed(ActionEvent ae) {
 		String s = ae.getActionCommand();
-	
+
 		if (s.equals("Exit")) {
-		
+
 			System.exit(0);
 		
 		} else if (s.equals("Transformar")) {
-		
-			System.out.println("AQUI!!!!");
+
 			for (int x = 0; x < pontos.getVetorDeMatriz().size() ; x++){
 				 float[][] arrayPonto = pontos.getVetorDeMatriz().get(x);
 				 System.out.println("x: " + arrayPonto[0][0] + " y: " + arrayPonto [0][1]);

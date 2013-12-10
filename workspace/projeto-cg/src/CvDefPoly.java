@@ -32,7 +32,7 @@ class CvDefPoly extends Canvas {
 				float xA = fx(evt.getX()), yA = fy(evt.getY());
 				// Só para observear as cordenadas (em relação ao primeiro
 				// click)
-				System.out.println("Cordenadas: X = " + xA + " | Y = " + yA);
+				///System.out.println("Cordenadas: X = " + xA + " | Y = " + yA);
 				if (ready) {
 					v.removeAllElements();
 					x0 = xA;
@@ -43,7 +43,7 @@ class CvDefPoly extends Canvas {
 				// Condição que é disparada quando o poligono é fechado
 				if (v.size() > 0
 						&& dx * dx + dy * dy < 4 * pixelSize * pixelSize) {
-					System.out.println("WE");
+					//System.out.println("WE");
 					Point2D pontoTemp;
 					// Teste de retorno do vetor de pontos
 
@@ -51,9 +51,9 @@ class CvDefPoly extends Canvas {
 
 						pontoTemp = (Point2D) (v.elementAt(i));
 						
-						System.out.println("Ponto " + i + " X = "
-								+ iX(pontoTemp.x) + " Y = " + iX(pontoTemp.y));
-						System.out.print(v.size());
+						//System.out.println("Ponto " + i + " X = "
+						//		+ iX(pontoTemp.x) + " Y = " + iX(pontoTemp.y));
+						//System.out.print(v.size());
 
 						float[][] coord = new float[1][2];
 						coord[0][0] = iX(pontoTemp.x);
