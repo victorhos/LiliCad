@@ -36,11 +36,11 @@ class Calculos
 	//Método que exibe a Matriz recebida - START
 	public static void exibeMatriz(double m1[][])
 	{
-		DecimalFormat format = new DecimalFormat("#.###"); //141113 - Lilian - Instanciando um objeto do DecimalFormat				
+		DecimalFormat format = new DecimalFormat("0.000"); //141113 - Lilian - Instanciando um objeto do DecimalFormat				
 		
-		for(int x = 0; x < m1.length;x++)
+		for(int x = 0; x < m1.length; x++)
 		{
-			for(int y =0;y<m1[0].length;y++)
+			for(int y = 0; y < m1[0].length; y++)
 			{
 				System.out.print(format.format(m1[x][y]));
 				System.out.print("	");

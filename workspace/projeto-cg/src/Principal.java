@@ -35,8 +35,7 @@ public class Principal
 		matrizTeste[2][5] = 1;//		
 		
 		System.out.println("Matriz inicial:");
-		Calculos.exibeMatriz(matrizTeste);
-		
+		Calculos.exibeMatriz(matrizTeste);		
 		
 		//ESCALA
 		//Calculos.exibeMatriz(Operacoes.escala(3, matrizTeste));	
@@ -62,8 +61,24 @@ public class Principal
 		
 		//Calculos.exibeMatriz(Operacoes.rotacao(60, matrizTeste));
 		
-		System.out.println("RESULTADO: ");
-		Calculos.exibeMatriz(Operacoes.translacao(2, 2, matrizTeste));
+		//System.out.println("RESULTADO: ");
+		//Calculos.exibeMatriz(Operacoes.translacao(2, 2, matrizTeste));
+		
+		//System.out.println("RESULTADO: ");
+		//System.out.println("Área de " + Operacoes.calculaArea(matrizTeste));
+		//(Operacoes.triangularizacaoPoligono(matrizTeste));
+	
+		
+		String[] result = new String[6];
+		result = Operacoes.identificacaoVertices(matrizTeste);
+		
+		
+		
+		for (int x = 0; x < result.length; x++)
+		{
+			System.out.println(result[x]);
+		}
+		
 		
 	}
 }

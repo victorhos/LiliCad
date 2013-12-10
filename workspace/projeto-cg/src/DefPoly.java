@@ -219,8 +219,8 @@ class MyActionListener implements ActionListener {
 		} else if (s.equals("Transformar")) {
 		
 			System.out.println("AQUI!!!!");
-			cvDefPolyObj
-		
+	//		cvDefPolyObj
+//		
 		} else {
 			
 			System.out.println(s + " clicked");
@@ -229,6 +229,6 @@ class MyActionListener implements ActionListener {
 	}
 	
 	public void setCvDefPoly(CvDefPoly cvDefPolyObj){
-		return 
+		//return 
 	}
 }
