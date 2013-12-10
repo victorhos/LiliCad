@@ -13,8 +13,13 @@ import java.awt.event.*;
 import java.util.*;
 
 class CvDefPoly extends Canvas {
-	Vector v = new Vector();
-	Vector vetorDeMatriz = new Vector();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public Vector<Point2D> v = new Vector<Point2D>();
+	// public Vector<Integer[][]> vetorDeMatriz = new Vector<Integer[][]>();
+	public ArrayList<float[][]> vetorDeMatriz = new ArrayList<float[][]>();
 	float x0, y0, rWidth = 10.0F, rHeight = 7.5F, pixelSize;
 	boolean ready = true;
 	int centerX, centerY;
@@ -41,11 +46,21 @@ class CvDefPoly extends Canvas {
 					System.out.println("WE");
 					Point2D pontoTemp;
 					// Teste de retorno do vetor de pontos
+
 					for (int i = 0; i < v.size(); i++) {
+
 						pontoTemp = (Point2D) (v.elementAt(i));
+						
 						System.out.println("Ponto " + i + " X = "
 								+ iX(pontoTemp.x) + " Y = " + iX(pontoTemp.y));
-						vetorDeMatriz.add(new Float[(int) pontoTemp.x][(int) pontoTemp.y]);
+						System.out.print(v.size());
+
+						float[][] coord = new float[1][2];
+						coord[0][0] = iX(pontoTemp.x);
+						coord[0][1] = iY(pontoTemp.y);
+
+						vetorDeMatriz.add(coord);
+
 					}
 					ready = true;
 				} else
@@ -80,8 +95,12 @@ class CvDefPoly extends Canvas {
 		return (centerY - y) * pixelSize;
 	}
 	
-	Vector getVetorDeMatriz(){
+	public ArrayList<float[][]> getVetorDeMatriz() {
 		return this.vetorDeMatriz;
+	}
+
+	public void setVetorDeMatriz(ArrayList<float[][]> vetorDeMatriz) {
+		this.vetorDeMatriz = vetorDeMatriz;
 	}
 
 	public void paint(Graphics g) {
