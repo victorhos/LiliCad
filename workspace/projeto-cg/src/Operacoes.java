@@ -64,23 +64,7 @@ class Operacoes
  		//para comparar a última posição do vetor com a primeira
  		int aux_ini = 0;
  		verifica[0][aux_ini] = ((pontos[0][aux] * pontos[1][aux_ini]) - (pontos[1][aux] * pontos[0][aux_ini]));
-		
- 		
- 		/*
- 		//percorrendo o vetor e verificando o valor da multiplicação e armazenando 0 para negativo e 1 para positivo
- 		for (int w = 0; w <= (pontos.length -1); w++)
- 		{
- 			if (verifica[w][0] < 0)
- 			{
- 				verifica[w][1] = 0;
- 			}
- 			else
- 			{
- 				verifica[w][1] = 1;
- 			}
- 		} 	
- 		*/
- 		
+		 		
  		//inicio dos metodos que verificão se o ponto é concavo ou convexo
  		String resultado[] = new String[pontos.length];
  		
@@ -108,11 +92,11 @@ class Operacoes
     	 boolean aux1 = true, aux2 = true;
     	 String resultado = "";
     	 int ultimaPosicao = verifica.length-1;
-    	 if(verifica[0][0] < 0 && verifica[ultimaPosicao][0] >= 0 )
+    	 if(verifica[0][0] < 0 && verifica[0][ultimaPosicao] >= 0 )
     	 {
  			aux1=false;
  		 }
- 		 if(verifica[0][0] < 0 && verifica[1][0] >= 0)
+ 		 if(verifica[0][0] < 0 && verifica[0][1] >= 0)
  		 {
  			aux2=false;
  		 }
@@ -131,7 +115,7 @@ class Operacoes
      public static String trata_posicaoMeio(double verifica[][],int z)
      {																  
     	 boolean aux1 = true, aux2 = true;									
-    	 String resultado="";
+    	 String resultado = "";
     	 if(verifica[0][z] < 0 && verifica[0][z-1] >= 0 )
     	 {
  			aux1 = false;
@@ -157,11 +141,11 @@ class Operacoes
     	 boolean aux1=true, aux2=true;
     	 String resultado="";
     	 int ultimaPosicao=verifica.length-1;
-    	 if(verifica[ultimaPosicao][0]< 0 && verifica[ultimaPosicao-1][0] >= 0 )
+    	 if(verifica[0][ultimaPosicao]< 0 && verifica[0][ultimaPosicao-1] >= 0 )
     	 {
     		 aux1=false;
  		 }
- 		 if(verifica[ultimaPosicao][0] < 0 && verifica[0][0] >= 0 )
+ 		 if(verifica[0][ultimaPosicao] < 0 && verifica[0][0] >= 0 )
  		 {
  			 aux2=false;
  		 }
