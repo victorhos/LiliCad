@@ -31,8 +31,9 @@ class Operacoes
 		{	
 			//calculando o tamanho dos lados
 			ladoA = ((triangulos[0][y] 		- triangulos[0][y+1])	+ (triangulos[1][y] 	- triangulos[1][y+1]));
-			ladoB = ((triangulos[0][y+1] 	- triangulos[0][y+2])	+ (triangulos[1][y+1] 	- triangulos[1][y+2]));
+			ladoB = ((triangulos[0][y+1] 	- triangulos[0][y+2])	+ (triangulos[1][y+1] 	- triangulos[1][y+2]));		
 			ladoC = ((triangulos[0][y+2] 	- triangulos[0][y])		+ (triangulos[1][y+2] 	- triangulos[1][y]));
+			
 			//acertando os valores dos lados para positivo
 			//Lado A
 			if (ladoA < 0)
@@ -49,11 +50,11 @@ class Operacoes
 			{
 				ladoC = ladoC * (-1);
 			}				
-	
+			
 			//calculando o perimetro do triangulo
-			perimetro = (ladoA + ladoB + ladoC)/2;			
-								
-			areaParcial[aux] = Math.sqrt(perimetro * ((perimetro - ladoA)*(perimetro - ladoB)*(perimetro - ladoC)));
+			perimetro = (ladoA + ladoB + ladoC);
+							
+			areaParcial[aux] = Math.sqrt(perimetro * ((perimetro - ladoA)*(perimetro - ladoB)*(perimetro - ladoC)));			
 			aux++;			
 		}
 		
@@ -62,7 +63,7 @@ class Operacoes
 		{
 			areaTotal += areaParcial[y];
 		}
-		
+				
 		//retorna o resultado
 		return areaTotal;
 	}

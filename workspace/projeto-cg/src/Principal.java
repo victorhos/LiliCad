@@ -1,8 +1,12 @@
+import java.text.DecimalFormat;
+
 public class Principal 
 {
 	public static void main (String[] args)
 	{
 
+		DecimalFormat format_ = new DecimalFormat("0.000");
+		
 		//Operacoes.escala(3);
 		
 		
@@ -78,7 +82,7 @@ public class Principal
 		//String[] result = new String[6];
 		//result = Operacoes.identificacaoVertices(matrizTeste);
 		
-		System.out.println(Operacoes.calculaArea(matrizTeste));
+		System.out.println("Área do Polígono: " + format_.format(Operacoes.calculaArea(matrizTeste)));
 		
 		
 		/*
