@@ -18,40 +18,42 @@ class Operacoes
 
 		//matriz que receberá os pontos que foram os triangulos
 		double triangulos[][] = new double[2][pontosPoligono.length];
-		
-		System.out.println("Irá chamar a triangularizaçao");
-		
+			
 		//recebendo os triângulos 
-		triangulos = Operacoes.triangularizacaoPoligono(pontosPoligono);
-		
+		triangulos = Operacoes.triangularizacaoPoligono(pontosPoligono);	
 	
 		double ladoA = 0, ladoB = 0, ladoC = 0;
 		double perimetro = 0;
 		int aux = 0;
-		int x = 0;
-		
-		System.out.println("Entrando no super for");
-		//faz os cálculos da área de cada triangulo a partir da fila recebida armazena em uma matriz com o tamanho da fila
-		for (int y = 0; y <= triangulos.length; y = y+3)
-		{
-				System.out.println("Hello! I'm here!");
-				//calculando o perimetro do primeito triangulo
-				/*
-				ladoA = (triangulos[0][x] - triangulos[0][x+1])+(triangulos[1][x] - triangulos[1][x+1]);
-				ladoB = (triangulos[0][x+1] - triangulos[0][x+2])+(triangulos[1][x+1] - triangulos[1][x+2]);
-				ladoC = (triangulos[0][x+2] - triangulos[0][x])+(triangulos[1][x+2] - triangulos[1][x]);			
-				*/
-				ladoA = (triangulos[0][y] - triangulos[0][y+1])+(triangulos[1][y] - triangulos[1][y+1]);
-				
-				ladoB = (triangulos[0][y+1] - triangulos[0][y+2])+(triangulos[1][y+1] - triangulos[1][y+2]);
-				
-				ladoC = (triangulos[0][y+2] - triangulos[0][y])+(triangulos[1][y+2] - triangulos[1][y]);
-						
-				perimetro = (ladoA + ladoB + ladoC)/2;				
-				System.out.println("Perimetro: " + perimetro);
-			//}
-			//cálculo da área de cada triangulo e armazenar no vetor
-			areaParcial[aux] = Math.sqrt(perimetro * (perimetro - ladoA)*(perimetro - ladoB)*(perimetro - ladoC));
+			
+		//faz os cálculos da área de cada triangulo a partir da fila recebida armazena em uma matriz com o tamanho da fila recebida
+		for (int y = 0; y < triangulos[0].length; y = y+3)
+		{	
+			//calculando o tamanho dos lados
+			ladoA = ((triangulos[0][y] 		- triangulos[0][y+1])	+ (triangulos[1][y] 	- triangulos[1][y+1]));
+			ladoB = ((triangulos[0][y+1] 	- triangulos[0][y+2])	+ (triangulos[1][y+1] 	- triangulos[1][y+2]));
+			ladoC = ((triangulos[0][y+2] 	- triangulos[0][y])		+ (triangulos[1][y+2] 	- triangulos[1][y]));
+			//acertando os valores dos lados para positivo
+			//Lado A
+			if (ladoA < 0)
+			{
+				ladoA = ladoA * (-1);
+			}
+			//Lado B
+			if (ladoB < 0)
+			{
+				ladoB = ladoB * (-1);
+			}
+			//Lado C 
+			if (ladoC < 0)
+			{
+				ladoC = ladoC * (-1);
+			}				
+	
+			//calculando o perimetro do triangulo
+			perimetro = (ladoA + ladoB + ladoC)/2;			
+								
+			areaParcial[aux] = Math.sqrt(perimetro * ((perimetro - ladoA)*(perimetro - ladoB)*(perimetro - ladoC)));
 			aux++;			
 		}
 		
@@ -352,28 +354,21 @@ class Operacoes
 			pontos_result[0][x] = resultados[x]; 
 			pontos_result[1][x]	= "N";	
 		}
-		
+
 		//variavel auxiliar
 		int cont = 0;
 		
 		//loop para verificar se o triângulo é válido
 		for (int y = 0; y < pontos_result[0].length; y++)			
-		{			
+		{		
 			if ((pontos_result[0][y].equals("Convexo")) && (pontos_result[1][y].equals("N")))
 			{				
-				triangulos[0][cont] = pontos[0][y];
-				System.out.println("xllly"+triangulos[0][cont]+ triangulos[1][cont]);
+				triangulos[0][cont] = pontos[0][y];				
 				triangulos[1][cont] = pontos[1][y];				
 				cont++;
 				pontos_result[1][y] = "S";
 			}			
-		}
-		
-		for (int x = 0; x < triangulos.length; x++)
-		{
-			System.out.println("x "+triangulos[0][x] + " y "+ triangulos[1][x]);
-		}
-		
+		}			
 		return triangulos;
 	}	 
 	 

@@ -6,9 +6,9 @@ public class Principal
 		//Operacoes.escala(3);
 		
 		
-		double matrizTeste[][] = new double[3][6];
+		double matrizTeste[][] = new double[3][9];
 		//Calculos.exibeMatriz(matrizTeste);
-		
+
 		//A
 		matrizTeste[0][0] = 0;
 		matrizTeste[1][0] = 0;
@@ -23,7 +23,7 @@ public class Principal
 		matrizTeste[0][2] = 7;
 		matrizTeste[1][2] = 4;
 		matrizTeste[2][2] = 1;//
-		
+
 		//D
 		matrizTeste[0][3] = 6;
 		matrizTeste[1][3] = 8;
@@ -37,7 +37,8 @@ public class Principal
 		//F
 		matrizTeste[0][5] = 1;
 		matrizTeste[1][5] = 4;
-		matrizTeste[2][5] = 1;//		
+		matrizTeste[2][5] = 1;//
+		
 		
 		System.out.println("Matriz inicial:");
 		Calculos.exibeMatriz(matrizTeste);		
