@@ -1,22 +1,49 @@
 // DefPoly.java: Drawing a polygon.
 
 // Copied from Section 1.5 of
-//    Ammeraal, L. and K. Zhang (2007). Computer Graphics for Java Programmers, 2nd Edition,
-//       Chichester: John Wiley.
+// Ammeraal, L. and K. Zhang (2007). Computer Graphics for Java Programmers, 2nd Edition,
+// Chichester: John Wiley.
 
-// Uses: CvDefPoly (discussed below).
 import java.awt.*;
 import java.awt.event.*;
 
-//import javax.swing.*;
-
 public class DefPoly extends Frame {
 
+	/**
+	 * 
+	 */
+
+	private static final long serialVersionUID = 1L;
+	
+	//Rotação
+	Checkbox checkRotacao = new Checkbox("Rotação", false);
+	CheckboxGroup checkSentidoHorarioAnti = new CheckboxGroup();
+	TextField textGrau = new TextField();
+	
+	//Translação
+	Checkbox checkTranslacao = new Checkbox("Translação", false);
+	TextField textX = new TextField();
+	TextField textY = new TextField();
+	
+	//Cisalhamento
+	Checkbox checkCisalhamento = new Checkbox("Cisalhamento", false);
+	TextField textXCi = new TextField();
+	TextField textYCi = new TextField();
+
+	//Escalonamento
+	Checkbox checkEscalonamento = new Checkbox("Escalonamento", false);
+	TextField textXEs = new TextField();
+	TextField textYEs = new TextField();
+	
+	//Espelhamento
+	Checkbox checkEspelhamento = new Checkbox("Espelhamento", false);
+	CheckboxGroup checkGroupEspelhamento = new CheckboxGroup();
+	
+	
 	public static void main(String[] args) {
 		new DefPoly();
 	}
 
-	@SuppressWarnings("deprecation")
 	DefPoly() {
 		super("LiliCad");
 
@@ -30,7 +57,7 @@ public class DefPoly extends Frame {
 		ActionListener action = new MyActionListener();
 		((MyActionListener) action).setCvDefPoly(cvDefPolyObj);
 
-		Panel panelButtons = new Panel(new GridLayout(6, 1));
+		Panel panelButtons = new Panel(new GridLayout(4, 2));
 		panelButtons.setBackground(new Color(216, 216, 191));
 
 		/* Box Rotação */
@@ -40,14 +67,9 @@ public class DefPoly extends Frame {
 		Panel panelCheckboxGroup = new Panel(new GridLayout(1, 2));
 
 		Label labelRotacao = new Label("___________Rotação___________");
-		Checkbox checkRotacao = new Checkbox("Rotação", false);
-		CheckboxGroup checkSentidoHorarioAnti = new CheckboxGroup();
-		TextField textGrau = new TextField();
 
-		panelCheckboxGroup.add(new Checkbox("Horário", checkSentidoHorarioAnti,
-				true));
-		panelCheckboxGroup.add(new Checkbox("Anti-Horário",
-				checkSentidoHorarioAnti, false));
+		panelCheckboxGroup.add(new Checkbox("Horário", checkSentidoHorarioAnti, true));
+		panelCheckboxGroup.add(new Checkbox("Anti-Horário", checkSentidoHorarioAnti, false));
 
 		panelRotacao.add(labelRotacao);
 		panelRotacao.add(checkRotacao);
@@ -60,13 +82,10 @@ public class DefPoly extends Frame {
 		/* Box Translação */
 
 		Panel boxTranslacao = new Panel(new FlowLayout(0, 20, 10));
-		Panel panelTranslacao = new Panel(new GridLayout(6, 1));
+		Panel panelTranslacao = new Panel(new GridLayout(3, 1));
 		Panel panelTextXY = new Panel(new GridLayout(2, 2));
 
 		Label labelTranslacao = new Label("___________Translação___________");
-		Checkbox checkTranslacao = new Checkbox("Translação", false);
-		TextField textX = new TextField();
-		TextField textY = new TextField();
 
 		panelTextXY.add(new Label("X: "));
 		panelTextXY.add(textX);
@@ -83,13 +102,10 @@ public class DefPoly extends Frame {
 		/* Box Cisalhamento */
 
 		Panel boxCisalhamento = new Panel(new FlowLayout(0, 20, 10));
-		Panel panelCisalhamento = new Panel(new GridLayout(6, 1));
+		Panel panelCisalhamento = new Panel(new GridLayout(3, 1));
 		Panel panelTextXYCi = new Panel(new GridLayout(2, 2));
 
 		Label labelCisalhamento = new Label("__________Cisalhamento__________");
-		Checkbox checkCisalhamento = new Checkbox("Cisalhamento", false);
-		TextField textXCi = new TextField();
-		TextField textYCi = new TextField();
 
 		panelTextXYCi.add(new Label("X: "));
 		panelTextXYCi.add(textXCi);
@@ -106,14 +122,10 @@ public class DefPoly extends Frame {
 		/* Box Escalonamento */
 
 		Panel boxEscalonamento = new Panel(new FlowLayout(0, 10, 10));
-		Panel panelEscalonamento = new Panel(new GridLayout(6, 1));
+		Panel panelEscalonamento = new Panel(new GridLayout(3, 1));
 		Panel panelTextXYEs = new Panel(new GridLayout(2, 2));
 
-		Label labelEscalonamento = new Label(
-				"___________Escalonamento___________");
-		Checkbox checkEscalonamento = new Checkbox("Escalonamento", false);
-		TextField textXEs = new TextField();
-		TextField textYEs = new TextField();
+		Label labelEscalonamento = new Label("___________Escalonamento___________");
 
 		panelTextXYEs.add(new Label("X: "));
 		panelTextXYEs.add(textXEs);
@@ -130,18 +142,13 @@ public class DefPoly extends Frame {
 		/* Box Espelhamento */
 
 		Panel boxEspelhamento = new Panel(new FlowLayout(0, 20, 10));
-		Panel panelEspelhamento = new Panel(new GridLayout(4, 1));
+		Panel panelEspelhamento = new Panel(new GridLayout(3, 1));
 		Panel panelCheckboxGroupEsp = new Panel(new GridLayout(1, 2));
 
-		Label labelEspelhamento = new Label(
-				"___________Espelhamento___________");
-		Checkbox checkEspelhamento = new Checkbox("Espelhamento", false);
-		CheckboxGroup checkGroupEspelhamento = new CheckboxGroup();
+		Label labelEspelhamento = new Label("___________Espelhamento___________");
 
-		panelCheckboxGroupEsp.add(new Checkbox("X", checkGroupEspelhamento,
-				true));
-		panelCheckboxGroupEsp.add(new Checkbox("Y", checkGroupEspelhamento,
-				false));
+		panelCheckboxGroupEsp.add(new Checkbox("X", checkGroupEspelhamento, true));
+		panelCheckboxGroupEsp.add(new Checkbox("Y", checkGroupEspelhamento, false));
 
 		panelEspelhamento.add(labelEspelhamento);
 		panelEspelhamento.add(checkEspelhamento);
@@ -166,9 +173,121 @@ public class DefPoly extends Frame {
 		add("Center", cvDefPolyObj);
 		add(panelButtons, BorderLayout.WEST);
 
-		setSize(1440, 650);
+		setSize(1340, 650);
 		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		show();
+	}
+
+	public Checkbox getCheckRotacao() {
+		return checkRotacao;
+	}
+
+	public void setCheckRotacao(Checkbox checkRotacao) {
+		this.checkRotacao = checkRotacao;
+	}
+
+	public CheckboxGroup getCheckSentidoHorarioAnti() {
+		return checkSentidoHorarioAnti;
+	}
+
+	public void setCheckSentidoHorarioAnti(CheckboxGroup checkSentidoHorarioAnti) {
+		this.checkSentidoHorarioAnti = checkSentidoHorarioAnti;
+	}
+
+	public TextField getTextGrau() {
+		return textGrau;
+	}
+
+	public void setTextGrau(TextField textGrau) {
+		this.textGrau = textGrau;
+	}
+
+	public Checkbox getCheckTranslacao() {
+		return checkTranslacao;
+	}
+
+	public void setCheckTranslacao(Checkbox checkTranslacao) {
+		this.checkTranslacao = checkTranslacao;
+	}
+
+	public TextField getTextX() {
+		return textX;
+	}
+
+	public void setTextX(TextField textX) {
+		this.textX = textX;
+	}
+
+	public TextField getTextY() {
+		return textY;
+	}
+
+	public void setTextY(TextField textY) {
+		this.textY = textY;
+	}
+
+	public Checkbox getCheckCisalhamento() {
+		return checkCisalhamento;
+	}
+
+	public void setCheckCisalhamento(Checkbox checkCisalhamento) {
+		this.checkCisalhamento = checkCisalhamento;
+	}
+
+	public TextField getTextXCi() {
+		return textXCi;
+	}
+
+	public void setTextXCi(TextField textXCi) {
+		this.textXCi = textXCi;
+	}
+
+	public TextField getTextYCi() {
+		return textYCi;
+	}
+
+	public void setTextYCi(TextField textYCi) {
+		this.textYCi = textYCi;
+	}
+
+	public Checkbox getCheckEscalonamento() {
+		return checkEscalonamento;
+	}
+
+	public void setCheckEscalonamento(Checkbox checkEscalonamento) {
+		this.checkEscalonamento = checkEscalonamento;
+	}
+
+	public TextField getTextXEs() {
+		return textXEs;
+	}
+
+	public void setTextXEs(TextField textXEs) {
+		this.textXEs = textXEs;
+	}
+
+	public TextField getTextYEs() {
+		return textYEs;
+	}
+
+	public void setTextYEs(TextField textYEs) {
+		this.textYEs = textYEs;
+	}
+
+	public Checkbox getCheckEspelhamento() {
+		return checkEspelhamento;
+	}
+
+	public void setCheckEspelhamento(Checkbox checkEspelhamento) {
+		this.checkEspelhamento = checkEspelhamento;
+	}
+
+	public CheckboxGroup getCheckGroupEspelhamento() {
+		return checkGroupEspelhamento;
+	}
+
+	public void setCheckGroupEspelhamento(CheckboxGroup checkGroupEspelhamento) {
+		this.checkGroupEspelhamento = checkGroupEspelhamento;
 	}
 
 }

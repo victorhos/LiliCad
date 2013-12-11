@@ -3,6 +3,8 @@ public class Principal
 	public static void main (String[] args)
 	{
 
+		DefPoly defPoly = new DefPoly();
+		
 		//Operacoes.escala(3);
 		
 		
