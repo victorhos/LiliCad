@@ -9,27 +9,32 @@ public class Principal
 		double matrizTeste[][] = new double[3][6];
 		//Calculos.exibeMatriz(matrizTeste);
 		
-		matrizTeste[0][0] = 2;
-		matrizTeste[1][0] = 8;
+		//A
+		matrizTeste[0][0] = 0;
+		matrizTeste[1][0] = 0;
 		matrizTeste[2][0] = 1;//
 		
+		//B
 		matrizTeste[0][1] = 4;
 		matrizTeste[1][1] = 1;
 		matrizTeste[2][1] = 1;//
 		
-			
+		//C
 		matrizTeste[0][2] = 7;
 		matrizTeste[1][2] = 4;
 		matrizTeste[2][2] = 1;//
 		
+		//D
 		matrizTeste[0][3] = 6;
 		matrizTeste[1][3] = 8;
 		matrizTeste[2][3] = 1;//
 		
+		//E
 		matrizTeste[0][4] = 4;
 		matrizTeste[1][4] = 4;
 		matrizTeste[2][4] = 1;//
 		
+		//F
 		matrizTeste[0][5] = 1;
 		matrizTeste[1][5] = 4;
 		matrizTeste[2][5] = 1;//		
@@ -69,15 +74,18 @@ public class Principal
 		//(Operacoes.triangularizacaoPoligono(matrizTeste));
 	
 		
-		String[] result = new String[6];
-		result = Operacoes.identificacaoVertices(matrizTeste);
+		//String[] result = new String[6];
+		//result = Operacoes.identificacaoVertices(matrizTeste);
+		
+		System.out.println(Operacoes.calculaArea(matrizTeste));
 		
 		
-		
+		/*
 		for (int x = 0; x < result.length; x++)
 		{
 			System.out.println(result[x]);
 		}
+		*/
 		
 		
 	}
