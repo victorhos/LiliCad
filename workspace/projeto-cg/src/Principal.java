@@ -1,40 +1,51 @@
+import java.text.DecimalFormat;
+
 public class Principal 
 {
 	public static void main (String[] args)
 	{
 
+
 		DefPoly defPoly = new DefPoly();
+
+		DecimalFormat format_ = new DecimalFormat("0.000");
 		
 		//Operacoes.escala(3);
 		
 		
-		double matrizTeste[][] = new double[3][6];
+		double matrizTeste[][] = new double[3][9];
 		//Calculos.exibeMatriz(matrizTeste);
-		
-		matrizTeste[0][0] = 2;
-		matrizTeste[1][0] = 8;
+
+		//A
+		matrizTeste[0][0] = 0;
+		matrizTeste[1][0] = 0;
 		matrizTeste[2][0] = 1;//
 		
+		//B
 		matrizTeste[0][1] = 4;
 		matrizTeste[1][1] = 1;
 		matrizTeste[2][1] = 1;//
 		
-			
+		//C
 		matrizTeste[0][2] = 7;
 		matrizTeste[1][2] = 4;
 		matrizTeste[2][2] = 1;//
-		
+
+		//D
 		matrizTeste[0][3] = 6;
 		matrizTeste[1][3] = 8;
 		matrizTeste[2][3] = 1;//
 		
+		//E
 		matrizTeste[0][4] = 4;
 		matrizTeste[1][4] = 4;
 		matrizTeste[2][4] = 1;//
 		
+		//F
 		matrizTeste[0][5] = 1;
 		matrizTeste[1][5] = 4;
-		matrizTeste[2][5] = 1;//		
+		matrizTeste[2][5] = 1;//
+		
 		
 		System.out.println("Matriz inicial:");
 		Calculos.exibeMatriz(matrizTeste);		
@@ -71,15 +82,18 @@ public class Principal
 		//(Operacoes.triangularizacaoPoligono(matrizTeste));
 	
 		
-		String[] result = new String[6];
-		result = Operacoes.identificacaoVertices(matrizTeste);
+		//String[] result = new String[6];
+		//result = Operacoes.identificacaoVertices(matrizTeste);
+		
+		System.out.println("Área do Polígono: " + format_.format(Operacoes.calculaArea(matrizTeste)));
 		
 		
-		
+		/*
 		for (int x = 0; x < result.length; x++)
 		{
 			System.out.println(result[x]);
 		}
+		*/
 		
 		
 	}

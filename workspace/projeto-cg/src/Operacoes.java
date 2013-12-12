@@ -10,37 +10,60 @@ class Operacoes
 	
 	//6.1 Cálculo da área do polígono
 	 public static double calculaArea(double pontosPoligono[][]) //confirmar como estão sendo recebidos os pontos
-	 {
-	 	//recebe o poligono	
-		double areaParcial[][] = new double[pontosPoligono.length][1]; //uma coluna e várias linhas para armazenar as áreas de cada triangulo
-		double areaTotal = 0;
-		double triangulos[][] = new double[pontosPoligono.length][3]; //cada linha é um triangulo		
+	 {	
+		//auxiliar que receberá as áreas parciais
+		double areaParcial[] = new double[pontosPoligono.length];
+		//variavel que receberá a área total
+		double areaTotal = 0;		
 
-		//recebe os pontos
-		triangulos = Operacoes.triangularizacaoPoligono(pontosPoligono);
-		
-		double ladoA, ladoB, ladoC;
-		double perimetro;
-		
-		//faz os cálculos da área de cada triangulo a partir da fila recebida armazena em uma matriz com o tamanho da fila
-		for (int x = 0; x < triangulos.length; x++)
-		{
-			//calculando o perimetro do primeito triangulo
-			ladoA = (triangulos[1][0] - triangulos[0][0]);
-			ladoB = triangulos[2][0] - triangulos[1][0];
-			ladoC = triangulos[0][0] - triangulos[2][0];			
-			perimetro = (ladoA + ladoB + ladoC)/2;
-					
-			//cálculo da área de cada triangulo e armazenar no vetor
-			areaParcial[x][0] = Math.sqrt(perimetro * (perimetro - ladoA)*(perimetro - ladoB)*(perimetro - ladoC));
+		//matriz que receberá os pontos que foram os triangulos
+		double triangulos[][] = new double[2][pontosPoligono.length];
+			
+		//recebendo os triângulos 
+		triangulos = Operacoes.triangularizacaoPoligono(pontosPoligono);	
+	
+		double ladoA = 0, ladoB = 0, ladoC = 0;
+		double perimetro = 0;
+		int aux = 0;
+			
+		//faz os cálculos da área de cada triangulo a partir da fila recebida armazena em uma matriz com o tamanho da fila recebida
+		for (int y = 0; y < triangulos[0].length; y = y+3)
+		{	
+			//calculando o tamanho dos lados
+			ladoA = ((triangulos[0][y] 		- triangulos[0][y+1])	+ (triangulos[1][y] 	- triangulos[1][y+1]));
+			ladoB = ((triangulos[0][y+1] 	- triangulos[0][y+2])	+ (triangulos[1][y+1] 	- triangulos[1][y+2]));		
+			ladoC = ((triangulos[0][y+2] 	- triangulos[0][y])		+ (triangulos[1][y+2] 	- triangulos[1][y]));
+			
+			//acertando os valores dos lados para positivo
+			//Lado A
+			if (ladoA < 0)
+			{
+				ladoA = ladoA * (-1);
+			}
+			//Lado B
+			if (ladoB < 0)
+			{
+				ladoB = ladoB * (-1);
+			}
+			//Lado C 
+			if (ladoC < 0)
+			{
+				ladoC = ladoC * (-1);
+			}				
+			
+			//calculando o perimetro do triangulo
+			perimetro = (ladoA + ladoB + ladoC);
+							
+			areaParcial[aux] = Math.sqrt(perimetro * ((perimetro - ladoA)*(perimetro - ladoB)*(perimetro - ladoC)));			
+			aux++;			
 		}
 		
 		//soma a area de cada triangulo 
 		for (int y = 0; y < areaParcial.length; y++)
 		{
-			areaTotal += areaParcial[y][0];
+			areaTotal += areaParcial[y];
 		}
-		
+				
 		//retorna o resultado
 		return areaTotal;
 	}
@@ -49,9 +72,7 @@ class Operacoes
      //6.2 Identificação dos vértices côncavos e convexos  
      public static String[] identificacaoVertices(double pontos[][])
      {     	
-      	double[][] verifica = new double[2][pontos[0].length];
-      	//verifica[-][0] - Para armazenar o resultado da multiplicação
-      	//verifica[-][1] - armazenando se é positivo ou negativo o resultado
+      	double[][] verifica = new double[1][pontos[0].length];
       	
       	int aux = 0;
       	      	      	     	
@@ -64,43 +85,30 @@ class Operacoes
  		//para comparar a última posição do vetor com a primeira
  		int aux_ini = 0;
  		verifica[0][aux_ini] = ((pontos[0][aux] * pontos[1][aux_ini]) - (pontos[1][aux] * pontos[0][aux_ini]));
-		
- 		
- 		/*
- 		//percorrendo o vetor e verificando o valor da multiplicação e armazenando 0 para negativo e 1 para positivo
- 		for (int w = 0; w <= (pontos.length -1); w++)
- 		{
- 			if (verifica[w][0] < 0)
- 			{
- 				verifica[w][1] = 0;
- 			}
- 			else
- 			{
- 				verifica[w][1] = 1;
- 			}
- 		} 	
- 		*/
- 		
+		 		
  		//inicio dos metodos que verificão se o ponto é concavo ou convexo
- 		String resultado[] = new String[pontos.length];
+ 		String resultado[] = new String[pontos[0].length];
+ 		
  		
  		for (int z = 0; z < verifica[0].length; z++)
  		{ 			
  			if(z == 0)
  			{
  				resultado[z] = trata_primeiraPosicao(verifica);
+ 			} 			
+ 			else 
+ 				if(z == (verifica[0].length - 1))
+ 				{
+ 					resultado[z] = trata_ultimaPosicao(verifica); 				
+ 				}
+ 				else
+ 				{
+ 					resultado[z] = trata_posicaoMeio(verifica, z);
+ 				}
  			}
- 			else if(z == verifica.length-1)
- 			{
- 				resultado[z] = trata_ultimaPosicao(verifica);
- 			}
- 			else
- 			{
- 				resultado[z] = trata_posicaoMeio(verifica, z);
- 			}
- 		}
  		return resultado;
-     }     
+     }  
+     
      
 	 //trata o primeiro ponto armazenado para realizar a verificação
      public static String trata_primeiraPosicao(double verifica[][])
@@ -108,11 +116,11 @@ class Operacoes
     	 boolean aux1 = true, aux2 = true;
     	 String resultado = "";
     	 int ultimaPosicao = verifica.length-1;
-    	 if(verifica[0][0] < 0 && verifica[ultimaPosicao][0] >= 0 )
+    	 if(verifica[0][0] < 0 && verifica[0][ultimaPosicao] >= 0 )
     	 {
  			aux1=false;
  		 }
- 		 if(verifica[0][0] < 0 && verifica[1][0] >= 0)
+ 		 if(verifica[0][0] < 0 && verifica[0][1] >= 0)
  		 {
  			aux2=false;
  		 }
@@ -131,7 +139,7 @@ class Operacoes
      public static String trata_posicaoMeio(double verifica[][],int z)
      {																  
     	 boolean aux1 = true, aux2 = true;									
-    	 String resultado="";
+    	 String resultado = "";
     	 if(verifica[0][z] < 0 && verifica[0][z-1] >= 0 )
     	 {
  			aux1 = false;
@@ -157,11 +165,11 @@ class Operacoes
     	 boolean aux1=true, aux2=true;
     	 String resultado="";
     	 int ultimaPosicao=verifica.length-1;
-    	 if(verifica[ultimaPosicao][0]< 0 && verifica[ultimaPosicao-1][0] >= 0 )
+    	 if(verifica[0][ultimaPosicao]< 0 && verifica[0][ultimaPosicao-1] >= 0 )
     	 {
     		 aux1=false;
  		 }
- 		 if(verifica[ultimaPosicao][0] < 0 && verifica[0][0] >= 0 )
+ 		 if(verifica[0][ultimaPosicao] < 0 && verifica[0][0] >= 0 )
  		 {
  			 aux2=false;
  		 }
@@ -328,47 +336,41 @@ class Operacoes
 
 	
      
-	 //Método que faz a triangularização do polígono - START
+     //Método que faz a triangularização do polígono
 	 public static double[][] triangularizacaoPoligono(double pontos[][])
-	{
-		double pontosParaTeste[][] = new double[3][3]; //três linhas duas colunas coluna 0 para x e 1 para y
+	{				
+		//lista para receber os pontos do triangulo
+		String resultados[] =  new String[pontos[0].length];
+		double triangulos[][] = new double[2][pontos[0].length];
 		
-		//loop para verificar se os três pontos selecionados são válidos para formar o triângulo
-		for (int x = 0; x < 3; x++)
+		//recebendo os resultados dos pontos
+		resultados = Operacoes.identificacaoVertices(pontos);
+		
+		//criação do vetor auxiliar de pontos
+		String pontos_result[][] = new String[2][resultados.length];
+		
+		//loop para passar os pontos para a matiz auxiliar e marcar como não usado
+		for (int x = 0; x < resultados.length; x++)
 		{
-			for (int y = 0; y < 3; y++)
-			{
-				//selecionando três pontos do poligono recebido
-				//primeiro ponto
-				pontosParaTeste[0][x] = pontos[0][x];
-				pontosParaTeste[0][y] = pontos[0][y];
-				//segundo ponto
-				pontosParaTeste[1][x] = pontos[1][x];
-				pontosParaTeste[1][y] = pontos[1][y];
-				//terceiro ponto
-				pontosParaTeste[2][x] = pontos[2][x];
-				pontosParaTeste[2][y] = pontos[2][y];
-				
-				//testando se são válidos
-				String resultado[] = new String[3];
-				resultado = Operacoes.identificacaoVertices(pontosParaTeste);
-				
-				if ((resultado[0].equals("Concavo"))&&(resultado[1].equals("Concavo"))&&(resultado[2].equals("Concavo")))
-				{
-					System.out.println(";P");
-					//fala q o triangulo valido
-					
-					//tira os triangulos da lista de pontos/marca como válidos
-					
-					//alinha como triangulo
-					
-					//retorna para 
-				}
-			}
+			pontos_result[0][x] = resultados[x]; 
+			pontos_result[1][x]	= "N";	
 		}
+
+		//variavel auxiliar
+		int cont = 0;
 		
-		//Calculos.calculaArea(filaTriangulos);
-		return pontos;
-	}
-	 //Método que faz a triangularização do polígono - END	
+		//loop para verificar se o triângulo é válido
+		for (int y = 0; y < pontos_result[0].length; y++)			
+		{		
+			if ((pontos_result[0][y].equals("Convexo")) && (pontos_result[1][y].equals("N")))
+			{				
+				triangulos[0][cont] = pontos[0][y];				
+				triangulos[1][cont] = pontos[1][y];				
+				cont++;
+				pontos_result[1][y] = "S";
+			}			
+		}			
+		return triangulos;
+	}	 
+	 
 }	
