@@ -5,7 +5,6 @@ public class Principal
 	public static void main (String[] args)
 	{
 
-
 		DefPoly defPoly = new DefPoly();
 
 		DecimalFormat format_ = new DecimalFormat("0.000");
