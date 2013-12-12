@@ -24,7 +24,7 @@ public class DefPoly extends Frame {
 	Checkbox checkTranslacao = new Checkbox("Translação", false);
 	TextField textX = new TextField();
 	TextField textY = new TextField();
-	
+
 	//Cisalhamento
 	Checkbox checkCisalhamento = new Checkbox("Cisalhamento", false);
 	TextField textXCi = new TextField();
