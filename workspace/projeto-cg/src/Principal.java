@@ -5,7 +5,7 @@ public class Principal
 	public static void main (String[] args)
 	{
 
-		DefPoly defPoly = new DefPoly();
+		//DefPoly defPoly = new DefPoly();
 
 		DecimalFormat format_ = new DecimalFormat("0.000");
 		
@@ -35,6 +35,7 @@ public class Principal
 		matrizTeste[1][3] = 8;
 		matrizTeste[2][3] = 1;//
 		
+		
 		//E
 		matrizTeste[0][4] = 4;
 		matrizTeste[1][4] = 4;
@@ -46,11 +47,12 @@ public class Principal
 		matrizTeste[2][5] = 1;//
 		
 		
+		
 		System.out.println("Matriz inicial:");
 		Calculos.exibeMatriz(matrizTeste);		
 		
 		//ESCALA
-		//Calculos.exibeMatriz(Operacoes.escala(3, matrizTeste));	
+		Calculos.exibeMatriz(Operacoes.escala(3, matrizTeste));	
 		
 		//ESPELHAMENTO
 		//Calculos.exibeMatriz(Operacoes.espelhamento(true, false, matrizTeste));
@@ -81,18 +83,18 @@ public class Principal
 		//(Operacoes.triangularizacaoPoligono(matrizTeste));
 	
 		
-		//String[] result = new String[6];
-		//result = Operacoes.identificacaoVertices(matrizTeste);
+		String[] result = new String[6];
+		result = Operacoes.identificacaoVertices(matrizTeste);
 		
 		System.out.println("Área do Polígono: " + format_.format(Operacoes.calculaArea(matrizTeste)));
 		
 		
-		/*
+		
 		for (int x = 0; x < result.length; x++)
 		{
 			System.out.println(result[x]);
 		}
-		*/
+		
 		
 		
 	}

@@ -5,14 +5,18 @@
 // Chichester: John Wiley.
 
 import java.awt.*;
+
 import java.awt.event.*;
+import java.text.DecimalFormat;
+
+import javax.swing.JOptionPane;
 
 public class DefPoly extends Frame {
 
 	/**
 	 * 
 	 */
-
+	
 	private static final long serialVersionUID = 1L;
 	
 	//Rotação
@@ -44,6 +48,7 @@ public class DefPoly extends Frame {
 		new DefPoly();
 	}
 
+	@SuppressWarnings("deprecation")
 	DefPoly() {
 		super("LiliCad");
 
@@ -291,10 +296,17 @@ public class DefPoly extends Frame {
 	}
 
 }
-
+//-----------------------------------trata as acoes-------------------------------------
 class MyActionListener implements ActionListener {
+	
+	//Matriz de dados para armazenar os pontos
+		public static double matPontos[][];
+		
+		public static double[][] getMatPontos(){
+			return matPontos;
+		}
 	CvDefPoly pontos = new CvDefPoly();
-
+	public static int mat;
 	public void actionPerformed(ActionEvent ae) {
 		String s = ae.getActionCommand();
 
@@ -303,10 +315,71 @@ class MyActionListener implements ActionListener {
 			System.exit(0);
 
 		} else if (s.equals("Transformar")) {
+
+			double novaMat[][] = new double[3][pontos.getVetorDeMatriz().size()];//declarando matriz Double
+
 			for (int x = 0; x < pontos.getVetorDeMatriz().size() ; x++){
-				 float[][] arrayPonto = pontos.getVetorDeMatriz().get(x);
-				 System.out.println("x: " + arrayPonto[0][0] + " y: " + arrayPonto [0][1]);
+				 
+				 double[][] arrayPonto = pontos.getVetorDeMatriz().get(x);
+				 
+				 //----convertendo de Float para double-------------
+				 
+				 
+				 novaMat[0][x]= arrayPonto[0][0];
+				 novaMat[1][x]= arrayPonto[0][1];
+				 novaMat[2][x]= 1;
+
 			}
+
+			DecimalFormat format_ = new DecimalFormat("0.000");
+
+			JOptionPane.showMessageDialog(null, "Matriz de entrada");
+			Calculos.exibeMatriz(novaMat);	
+
+			JOptionPane.showMessageDialog(null, "Escala");	
+			int valor = Integer.parseInt(JOptionPane.showInputDialog("Valor de escala: "));
+			Calculos.exibeMatriz(Operacoes.escala( valor,  novaMat));	
+
+			JOptionPane.showMessageDialog(null, "Espelhamento");
+			JOptionPane.showMessageDialog(null, "Espelhamento em X: ");
+			Calculos.exibeMatriz(Operacoes.espelhamento(true, false, novaMat));
+
+			JOptionPane.showMessageDialog(null, "Espelhamento em Y: ");
+			Calculos.exibeMatriz(Operacoes.espelhamento(false, true, novaMat));
+
+			JOptionPane.showMessageDialog(null, "Espelhamento em X e Y: ");
+			Calculos.exibeMatriz(Operacoes.espelhamento(true, true, novaMat));
+
+			//TRANSLAÇÃO - ***IMPORTANTE - NA CHAMADA DESSE MÉTODO CASO NÃO HAJA TRANSLÇÃO EM UM DOS PONTOS (X OU Y) PASSAR 0
+			JOptionPane.showMessageDialog(null, "Translação");
+
+			valor = Integer.parseInt(JOptionPane.showInputDialog("Valor da translação em X: ")); 
+			Calculos.exibeMatriz(Operacoes.translacao(valor, 0, novaMat));
+
+			valor = Integer.parseInt(JOptionPane.showInputDialog("Valor da translação em Y: "));
+			Calculos.exibeMatriz(Operacoes.translacao(0, valor, novaMat));
+
+			valor = Integer.parseInt(JOptionPane.showInputDialog("Valor da translação em X: "));
+			int valor_ = Integer.parseInt(JOptionPane.showInputDialog("Valor da translação em Y: "));
+			Calculos.exibeMatriz(Operacoes.translacao(valor, valor_, novaMat));
+
+			JOptionPane.showMessageDialog(null, "Cisalhamento");
+			//CISALHAMENTO - ***IMPORTANTE - NA CHAMADA DESSE MÉTODO, CASO NÃO HAJA CISALHAMENTO EM UM DOS PONTOS (X OU Y) PASSAR O ANGULO DESTE COMO ???
+			JOptionPane.showMessageDialog(null, "Cisalhamento em X");
+			valor = Integer.parseInt(JOptionPane.showInputDialog("Angulo: "));
+			Calculos.exibeMatriz(Operacoes.cisalhamento(valor, 0, true, false, novaMat));
+
+			JOptionPane.showMessageDialog(null, "Cisalhamento em Y");
+			valor = Integer.parseInt(JOptionPane.showInputDialog("Angulo: "));
+			Calculos.exibeMatriz(Operacoes.cisalhamento(0, valor, false, true, novaMat));
+
+			JOptionPane.showMessageDialog(null, "Cisalhamento em X e Y");
+			valor = Integer.parseInt(JOptionPane.showInputDialog("Angulo: "));
+			Calculos.exibeMatriz(Operacoes.cisalhamento(valor, valor, true, true, novaMat));
+
+			JOptionPane.showMessageDialog(null, "Rotação");
+			valor = Integer.parseInt(JOptionPane.showInputDialog("Angulo rotação: "));
+			Calculos.exibeMatriz(Operacoes.rotacao(valor, novaMat));
 		} else {
 
 			System.out.println(s + " clicked");
